@@ -1,9 +1,12 @@
 from enum import Enum
 import os
+from typing import Tuple
 
 from .errors.environment_errors import EnvironmentNotFound
 
 from src.app.repo.user_repo.user_repository_interface import IUserRepository
+from .repo.history_transictions_repo.transactions_repository_mock import HistoryRepositoryMock
+from .repo.user_repo.user_repository_mock import UserRepositoryMock
 
 
 class STAGE(Enum):
@@ -35,10 +38,11 @@ class Environments:
         self.stage = STAGE[os.environ.get("STAGE")]
 
     @staticmethod
-    def get_user_repo() -> IUserRepository:
+    def get_repos() -> tuple[UserRepositoryMock, HistoryRepositoryMock]:
         if Environments.get_envs().stage == STAGE.TEST:
             from src.app.repo.user_repo.user_repository_mock import UserRepositoryMock
-            return UserRepositoryMock()
+            from src.app.repo.history_transictions_repo.transactions_repository_mock import HistoryRepositoryMock
+            return UserRepositoryMock(), HistoryRepositoryMock()
         # use "elif" conditional to add other stages
         else:
             raise EnvironmentNotFound("STAGE")
