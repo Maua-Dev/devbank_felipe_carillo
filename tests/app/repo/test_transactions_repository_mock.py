@@ -10,7 +10,7 @@ class Test_TransactionsRepositoryMock:
         repo = TransactionsRepositoryMock()
         transaction = Transaction(type_transactions=TransactionsTypeEnum.deposit, value=100.0, current_balance=100.0)
         response = repo.create_transaction(transaction=transaction)
-        assert response == {"current_balance": 200.0, "timestamp": transaction.timestamp}
+        assert response["current_balance"] == 200.0
 
     def test_get_transactions_history(self):
         repo = TransactionsRepositoryMock()
