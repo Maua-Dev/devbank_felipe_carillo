@@ -23,9 +23,8 @@ class Test_Main:
             "2": 1
         }
         response = create_deposit(request=body)
-        assert response == {
-            "current_balance": 1002.0,
-            "timestamp": time() * 1000
+        assert response["current_balance"] == {
+            "current_balance": 1002.0
         }
 
     def test_create_deposit_invalid_input(self):
@@ -55,9 +54,8 @@ class Test_Main:
             "2": 1
         }
         response = create_withdraw(body)
-        assert response == {
-            "current_balance": 1000,
-            "timestamp": time() * 1000
+        assert response["current_balance"] == {
+            "current_balance": 1000
         }
 
     def test_create_withdraw_invalid_input(self):

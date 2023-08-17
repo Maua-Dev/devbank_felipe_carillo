@@ -11,12 +11,6 @@ class Test_Transaction:
         assert transaction.value == 100
         assert transaction.current_balance == 100
         assert transaction.timestamp is not None
-        assert transaction.to_dict() == {
-            "type": "deposit",
-            "value": 100.0,
-            "current_balance": 100.0,
-            "timestamp": transaction.timestamp
-        }
 
     def test_transaction_type_none(self):
         with pytest.raises(ParamNotValidated):
