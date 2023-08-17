@@ -1,6 +1,5 @@
 from enum import Enum
 import os
-from typing import Tuple
 
 from .errors.environment_errors import EnvironmentNotFound
 from .repo.history_transictions_repo.transactions_repository_mock import TransactionsRepositoryMock

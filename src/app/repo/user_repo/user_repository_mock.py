@@ -1,5 +1,5 @@
-from src.app.entities.user import User
-from src.app.repo.user_repo.user_repository_interface import IUserRepository
+from ...entities.user import User
+from .user_repository_interface import IUserRepository
 
 
 class UserRepositoryMock(IUserRepository):

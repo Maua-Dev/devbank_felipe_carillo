@@ -1,8 +1,8 @@
-from typing import Dict, List, Set
-from src.app.entities.history import History
-from src.app.entities.transaction import Transaction
+from typing import Dict
+from ...entities.history import History
+from ...entities.transaction import Transaction
 
-from src.app.repo.history_transictions_repo.transactions_repository_interface import ITransactionsRepository
+from .transactions_repository_interface import ITransactionsRepository
 
 
 class TransactionsRepositoryMock(ITransactionsRepository):
