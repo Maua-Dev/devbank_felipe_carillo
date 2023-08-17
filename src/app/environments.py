@@ -37,8 +37,8 @@ class Environments:
     @staticmethod
     def get_repos() -> tuple[UserRepositoryMock, TransactionsRepositoryMock]:
         if Environments.get_envs().stage == STAGE.TEST:
-            from src.app.repo.user_repo.user_repository_mock import UserRepositoryMock
-            from src.app.repo.history_transictions_repo.transactions_repository_mock import TransactionsRepositoryMock
+            from .repo.user_repo.user_repository_mock import UserRepositoryMock
+            from .repo.history_transictions_repo.transactions_repository_mock import TransactionsRepositoryMock
             return UserRepositoryMock(), TransactionsRepositoryMock()
         # use "elif" conditional to add other stages
         else:
