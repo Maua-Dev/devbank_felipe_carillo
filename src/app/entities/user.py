@@ -70,3 +70,12 @@ class User:
         if balance < 0:
             return False, "Balance must be a positive number"
         return True, ""
+
+    def to_dict(self):
+        return {
+            "name": self.name,
+            "agency": self.agency,
+            "account": self.account,
+            "current_balance": self.current_balance
+        }
+

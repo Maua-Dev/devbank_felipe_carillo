@@ -2,18 +2,15 @@ from typing import Dict, List, Set
 from src.app.entities.history import History
 from src.app.entities.transaction import Transaction
 
-from src.app.repo.history_transictions_repo.transactions_repository_interface import IHistoryRepository
+from src.app.repo.history_transictions_repo.transactions_repository_interface import ITransactionsRepository
 
 
-class HistoryRepositoryMock(IHistoryRepository):
+class TransactionsRepositoryMock(ITransactionsRepository):
     history: History
     transaction: Transaction
 
     def __init__(self):
-        self.history = History(
-            all_transactions=[
-            ]
-        )
+        self.history = History()
 
     def create_transaction(self, transaction: Transaction = None) -> Dict[str, float]:
         if transaction.type.value == "deposit":
@@ -28,7 +25,7 @@ class HistoryRepositoryMock(IHistoryRepository):
         )
 
         self.history.all_transactions.append(transaction)
-        return {"current_balance": transaction.current_balance, "timestamp": transaction.timestamp, "history": self.history}
+        return {"current_balance": transaction.current_balance, "timestamp": transaction.timestamp}
 
-    def get_history(self):
+    def get_transactions_history(self):
         return self.history

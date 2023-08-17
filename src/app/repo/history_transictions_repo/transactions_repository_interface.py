@@ -5,10 +5,10 @@ from src.app.entities.transaction import Transaction
 from src.app.entities.user import User
 
 
-class IHistoryRepository(ABC):
+class ITransactionsRepository(ABC):
 
     @abstractmethod
-    def get_history(self) -> Dict[str, List[Transaction]]:
+    def get_transactions_history(self) -> Dict[str, List[Transaction]]:
         """
         Returns all transactions in the database
         """
