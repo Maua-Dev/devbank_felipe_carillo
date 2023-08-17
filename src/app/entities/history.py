@@ -1,5 +1,5 @@
 from typing import List
-from ..entities.transaction import Transaction
+from .transaction import Transaction
 
 
 class History:

@@ -3,8 +3,6 @@ import os
 from typing import Tuple
 
 from .errors.environment_errors import EnvironmentNotFound
-
-from src.app.repo.user_repo.user_repository_interface import IUserRepository
 from .repo.history_transictions_repo.transactions_repository_mock import TransactionsRepositoryMock
 from .repo.user_repo.user_repository_mock import UserRepositoryMock
 
