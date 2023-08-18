@@ -1,16 +1,16 @@
 from time import time
 from typing import Tuple
 from ..errors.entity_errors import ParamNotValidated
-from ..enums.TransactionsTypeEnum import TransactionsTypeEnum
+from ..enums.TransactionsTypeEnum import TRANSACTION_TYPE
 
 
 class Transaction:
-    type: TransactionsTypeEnum
+    type: TRANSACTION_TYPE
     value: float
     current_balance: float
     timestamp: float  # miliseconds
 
-    def __init__(self, type_transactions: TransactionsTypeEnum = None, value: float = None,
+    def __init__(self, type_transactions: TRANSACTION_TYPE = None, value: float = None,
                  current_balance: float = None):
         validation_type = self.validate_type(type_transactions)
         if validation_type[0] is False:
@@ -34,10 +34,10 @@ class Transaction:
         self.timestamp = round(timestamp, 4)
 
     @staticmethod
-    def validate_type(type_transactions: TransactionsTypeEnum) -> Tuple[bool, str]:
+    def validate_type(type_transactions: TRANSACTION_TYPE) -> Tuple[bool, str]:
         if type_transactions is None:
             return False, "Type is required"
-        if type(type_transactions) != TransactionsTypeEnum:
+        if type(type_transactions) != TRANSACTION_TYPE:
             return False, "Type must be a TransactionsTypeEnum"
         return True, ""
 
@@ -71,7 +71,7 @@ class Transaction:
 
     def to_dict(self) -> dict:
         return {
-            "type": self.type.value,
+            "type": self.type.value.lower(),
             "value": self.value,
             "current_balance": self.current_balance,
             "timestamp": self.timestamp

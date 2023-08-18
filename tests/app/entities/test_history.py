@@ -1,6 +1,5 @@
 import pytest
 from src.app.entities.history import History
-from src.app.errors.entity_errors import ParamNotValidated
 
 
 class Test_History:

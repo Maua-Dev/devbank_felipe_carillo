@@ -5,7 +5,7 @@ from mangum import Mangum
 
 from .environments import Environments
 from .entities.transaction import Transaction
-from .enums.TransactionsTypeEnum import TransactionsTypeEnum
+from .enums.TransactionsTypeEnum import TRANSACTION_TYPE
 
 app = FastAPI()
 
@@ -35,7 +35,7 @@ def create_deposit(request: dict) -> dict:
         raise HTTPException(status_code=403, detail="Depósito suspeito")
 
     transaction = Transaction(
-        type_transactions=TransactionsTypeEnum.deposit,
+        type_transactions=TRANSACTION_TYPE.DEPOSIT,
         value=float(total_deposit),
         current_balance=user.current_balance
     )
@@ -61,7 +61,7 @@ def create_withdraw(request: dict):
         raise HTTPException(status_code=403, detail="Saldo insuficiente para transação")
 
     transaction = Transaction(
-        type_transactions=TransactionsTypeEnum.withdraw,
+        type_transactions=TRANSACTION_TYPE.WITHDRAW,
         value=float(total_withdrawal),
         current_balance=user.current_balance
     )
