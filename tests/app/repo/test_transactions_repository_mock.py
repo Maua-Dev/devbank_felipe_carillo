@@ -1,6 +1,6 @@
 import pytest
 from src.app.entities.transaction import Transaction
-from src.app.repo.history_transictions_repo.transactions_repository_mock import TransactionsRepositoryMock
+from src.app.repo.transictions_repo.transactions_repository_mock import TransactionsRepositoryMock
 from src.app.enums.TransactionsTypeEnum import TransactionsTypeEnum
 
 

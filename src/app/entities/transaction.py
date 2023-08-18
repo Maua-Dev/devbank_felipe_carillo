@@ -8,7 +8,7 @@ class Transaction:
     type: TransactionsTypeEnum
     value: float
     current_balance: float
-    timestamp: float
+    timestamp: float  # miliseconds
 
     def __init__(self, type_transactions: TransactionsTypeEnum = None, value: float = None,
                  current_balance: float = None):

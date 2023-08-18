@@ -2,7 +2,7 @@ from enum import Enum
 import os
 
 from .errors.environment_errors import EnvironmentNotFound
-from .repo.history_transictions_repo.transactions_repository_mock import TransactionsRepositoryMock
+from .repo.transictions_repo.transactions_repository_mock import TransactionsRepositoryMock
 from .repo.user_repo.user_repository_mock import UserRepositoryMock
 
 
@@ -35,12 +35,18 @@ class Environments:
         self.stage = STAGE[os.environ.get("STAGE")]
 
     @staticmethod
-    def get_repos() -> tuple[UserRepositoryMock, TransactionsRepositoryMock]:
+    def get_transactions_repo() -> TransactionsRepositoryMock:
+        if Environments.get_envs().stage == STAGE.TEST:
+            from .repo.transictions_repo.transactions_repository_mock import TransactionsRepositoryMock
+            return TransactionsRepositoryMock()
+        else:
+            raise EnvironmentNotFound("STAGE")
+
+    @staticmethod
+    def get_user_repo() -> UserRepositoryMock:
         if Environments.get_envs().stage == STAGE.TEST:
             from .repo.user_repo.user_repository_mock import UserRepositoryMock
-            from .repo.history_transictions_repo.transactions_repository_mock import TransactionsRepositoryMock
-            return UserRepositoryMock(), TransactionsRepositoryMock()
-        # use "elif" conditional to add other stages
+            return UserRepositoryMock()
         else:
             raise EnvironmentNotFound("STAGE")
 

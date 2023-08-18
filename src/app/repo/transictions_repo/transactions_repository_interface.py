@@ -16,10 +16,6 @@ class ITransactionsRepository(ABC):
     @abstractmethod
     def create_transaction(self, transaction: Transaction = None) -> Transaction:
         """
-        Returns transaction in the database
+        Create transaction in the database
         """
         pass
-
-
-class ITransactionRepository:
-    pass

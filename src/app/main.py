@@ -9,12 +9,13 @@ from .enums.TransactionsTypeEnum import TransactionsTypeEnum
 
 app = FastAPI()
 
-repoUser, repoTransactions = Environments.get_repos()
+repo_user = Environments.get_user_repo()
+repo_transactions = Environments.get_transactions_repo()
 
 
 @app.get("/")
 def get_user() -> Dict:
-    user = repoUser.get_user().to_dict()
+    user = repo_user.get_user().to_dict()
     return user
 
 
@@ -26,21 +27,21 @@ def create_deposit(request: dict) -> dict:
     total_deposit = sum(int(key) * value for key, value in request.items())
 
     if total_deposit <= 0:
-        raise HTTPException(status_code=400, detail="Value must be greater than zero")
+        raise HTTPException(status_code=400, detail="É necessário um valor maior que zero")
 
-    user = get_user()
-    min_balance_multiplier = 2
-    if user['current_balance'] * min_balance_multiplier <= total_deposit:
+    user = repo_user.get_user()
+    min_suspect_multiplier = 2
+    if user.current_balance * min_suspect_multiplier <= total_deposit:
         raise HTTPException(status_code=403, detail="Depósito suspeito")
 
     transaction = Transaction(
         type_transactions=TransactionsTypeEnum.deposit,
         value=float(total_deposit),
-        current_balance=user['current_balance']
+        current_balance=user.current_balance
     )
 
-    response = repoTransactions.create_transaction(transaction)
-    repoUser.update_current_balance(response["current_balance"])
+    response = repo_transactions.create_transaction(transaction)
+    repo_user.update_current_balance(response["current_balance"])
 
     return response
 
@@ -53,27 +54,27 @@ def create_withdraw(request: dict):
     total_withdrawal = sum(int(key) * value for key, value in request.items())
 
     if total_withdrawal <= 0:
-        raise HTTPException(status_code=400, detail="Value must be greater than zero")
+        raise HTTPException(status_code=400, detail="É necessário um valor maior que zero")
 
-    user = get_user()
-    if user['current_balance'] < total_withdrawal:
+    user = repo_user.get_user()
+    if user.current_balance < total_withdrawal:
         raise HTTPException(status_code=403, detail="Saldo insuficiente para transação")
 
     transaction = Transaction(
         type_transactions=TransactionsTypeEnum.withdraw,
         value=float(total_withdrawal),
-        current_balance=user['current_balance']
+        current_balance=user.current_balance
     )
 
-    response = repoTransactions.create_transaction(transaction)
-    repoUser.update_current_balance(response["current_balance"])
+    response = repo_transactions.create_transaction(transaction)
+    repo_user.update_current_balance(response["current_balance"])
 
     return response
 
 
 @app.get("/history")
-def get_history():
-    history = repoTransactions.get_transactions_history()
+def get_history() -> Dict:
+    history = repo_transactions.get_transactions_history()
     return history.to_dict()
 
 

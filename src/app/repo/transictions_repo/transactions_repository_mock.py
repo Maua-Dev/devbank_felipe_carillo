@@ -1,6 +1,7 @@
 from typing import Dict
 from ...entities.history import History
 from ...entities.transaction import Transaction
+from ...enums.TransactionsTypeEnum import TransactionsTypeEnum
 
 from .transactions_repository_interface import ITransactionsRepository
 
@@ -13,9 +14,9 @@ class TransactionsRepositoryMock(ITransactionsRepository):
         self.history = History()
 
     def create_transaction(self, transaction: Transaction = None) -> Dict[str, float]:
-        if transaction.type.value == "deposit":
+        if transaction.type == TransactionsTypeEnum.deposit:
             transaction.current_balance = transaction.current_balance + transaction.value
-        elif transaction.type.value == "withdraw":
+        elif transaction.type == TransactionsTypeEnum.withdraw:
             transaction.current_balance = transaction.current_balance - transaction.value
 
         transaction = Transaction(
