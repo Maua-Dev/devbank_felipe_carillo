@@ -31,7 +31,7 @@ def create_deposit(request: dict) -> dict:
 
     user = repo_user.get_user()
     min_suspect_multiplier = 2
-    if user.current_balance * min_suspect_multiplier <= total_deposit:
+    if user.current_balance * min_suspect_multiplier <= total_deposit and user.current_balance != 0:
         raise HTTPException(status_code=403, detail="Depósito suspeito")
 
     transaction = Transaction(
